@@ -1,0 +1,115 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #347BF6;
+  --color-primary-dark: #1a5fd4;
+  --color-yakkok: #7C5CF6;
+  --color-yakkok-light: #EDE9FF;
+  --color-text-primary: #1F1F22;
+  --color-text-secondary: #707378;
+  --color-text-tertiary: #9FA3A8;
+  --color-bg-light: #F0F1F2;
+  --color-bg-dark: #000000;
+  --color-card-border: #E8EAED;
+  --color-footer: #29303D;
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Border Radius */
+  --radius-card: 24px;
+  --radius-card-sm: 16px;
+  --radius-btn: 50px;
+
+  /* Spacing */
+  --spacing-section: 120px;
+  --spacing-section-sm: 80px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .container-main {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .section-padding {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .section-padding-sm {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* Text gradient */
+  .text-gradient-blue {
+    background: linear-gradient(135deg, #347BF6 0%, #5B9BFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #7C5CF6 0%, #A78BFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Card */
+  .card-base {
+    border-radius: 24px;
+    border: 1px solid #E8EAED;
+    background: #ffffff;
+    padding: 36px;
+  }
+
+  /* Frosted glass */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Fade in animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+}
