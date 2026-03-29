@@ -5,8 +5,8 @@
   /* Colors */
   --color-primary: #347BF6;
   --color-primary-dark: #1a5fd4;
-  --color-yakkok: #7C5CF6;
-  --color-yakkok-light: #EDE9FF;
+  --color-yakkok: #347BF6;
+  --color-yakkok-light: #EBF2FF;
   --color-text-primary: #1F1F22;
   --color-text-secondary: #707378;
   --color-text-tertiary: #9FA3A8;
@@ -74,8 +74,8 @@
     background-clip: text;
   }
 
-  .text-gradient-purple {
-    background: linear-gradient(135deg, #7C5CF6 0%, #A78BFA 100%);
+  .text-gradient-blue-light {
+    background: linear-gradient(135deg, #347BF6 0%, #7EB6FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

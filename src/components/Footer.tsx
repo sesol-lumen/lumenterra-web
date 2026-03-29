@@ -27,8 +27,6 @@ export default function Footer() {
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.8 }}>
               <span style={{ color: "rgba(255,255,255,0.3)", marginRight: 6 }}>대표이사</span>노형곤
-              <span style={{ margin: "0 8px", color: "rgba(255,255,255,0.2)" }}>•</span>
-              <span style={{ color: "rgba(255,255,255,0.3)", marginRight: 6 }}>개인정보책임관리자</span>김상균
             </p>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", margin: 0, lineHeight: 1.8 }}>
               <span style={{ color: "rgba(255,255,255,0.3)", marginRight: 6 }}>사업자등록번호</span>350-87-03086

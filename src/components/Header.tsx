@@ -96,25 +96,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <a
-          href="#contact"
-          className="hidden md:block"
-          style={{
-            fontSize: 14,
-            fontWeight: 700,
-            color: scrolled ? "#fff" : "#000",
-            background: scrolled ? "#347BF6" : "#fff",
-            padding: "8px 20px",
-            borderRadius: 50,
-            textDecoration: "none",
-            transition: "all 0.2s ease",
-            letterSpacing: "-0.2px",
-          }}
-        >
-          도입 문의
-        </a>
-
         {/* Mobile Hamburger */}
         <button
           className="md:hidden"
@@ -179,23 +160,6 @@ export default function Header() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              marginTop: 20,
-              fontSize: 16,
-              fontWeight: 700,
-              color: "#fff",
-              background: "#347BF6",
-              padding: "14px 24px",
-              borderRadius: 50,
-              textDecoration: "none",
-              textAlign: "center",
-            }}
-          >
-            도입 문의
-          </a>
         </div>
       )}
     </header>

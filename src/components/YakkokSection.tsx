@@ -42,19 +42,19 @@ const consumerFeatures = [
     step: "01",
     title: "내 주변 약국 재고 확인",
     desc: "위치 기반으로 탐색한 상품의 재고 가능성이 높은 약국부터 안내합니다.",
-    color: "#7C5CF6",
+    color: "#347BF6",
   },
   {
     step: "02",
     title: "찾고, 문의하고, 예약까지",
     desc: "약국 운영 정보·위치 확인, 전화 문의, 상품 재고 예약이 가능합니다.",
-    color: "#7C5CF6",
+    color: "#347BF6",
   },
   {
     step: "03",
     title: "영수증 데이터로 더 정확하게",
     desc: "영수증 인증 이벤트로 실제 구매 데이터를 수집해 재고 정확도를 높입니다.",
-    color: "#7C5CF6",
+    color: "#347BF6",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function YakkokSection() {
             style={{
               fontSize: 13,
               fontWeight: 700,
-              color: "#7C5CF6",
+              color: "#347BF6",
               letterSpacing: "2px",
               textTransform: "uppercase",
             }}
@@ -131,7 +131,7 @@ export default function YakkokSection() {
               style={{
                 fontSize: "clamp(16px, 2vw, 20px)",
                 fontWeight: 500,
-                color: "#7C5CF6",
+                color: "#347BF6",
                 margin: 0,
                 letterSpacing: "-0.3px",
               }}
@@ -159,7 +159,7 @@ export default function YakkokSection() {
           data-reveal
           data-delay="150"
           style={{
-            background: "linear-gradient(135deg, #2D1B69 0%, #1A0A4A 100%)",
+            background: "#000",
             borderRadius: 32,
             padding: "60px 56px",
             marginBottom: 24,
@@ -175,7 +175,7 @@ export default function YakkokSection() {
               width: 350,
               height: 350,
               borderRadius: "50%",
-              background: "rgba(124,92,246,0.2)",
+              background: "rgba(52,123,246,0.2)",
               filter: "blur(80px)",
             }}
           />
@@ -187,7 +187,7 @@ export default function YakkokSection() {
               width: 250,
               height: 250,
               borderRadius: "50%",
-              background: "rgba(167,139,250,0.15)",
+              background: "rgba(126,182,255,0.15)",
               filter: "blur(60px)",
             }}
           />
@@ -196,7 +196,7 @@ export default function YakkokSection() {
               style={{
                 fontSize: 13,
                 fontWeight: 700,
-                color: "#A78BFA",
+                color: "#7EB6FF",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 marginBottom: 20,
@@ -234,13 +234,13 @@ export default function YakkokSection() {
                 <span
                   key={tag}
                   style={{
-                    background: "rgba(124,92,246,0.2)",
-                    border: "1px solid rgba(124,92,246,0.4)",
+                    background: "rgba(52,123,246,0.2)",
+                    border: "1px solid rgba(52,123,246,0.4)",
                     borderRadius: 50,
                     padding: "6px 14px",
                     fontSize: 13,
                     fontWeight: 600,
-                    color: "#C4B5FD",
+                    color: "#7EB6FF",
                   }}
                 >
                   {tag}
@@ -265,17 +265,28 @@ export default function YakkokSection() {
           {/* Consumer Features */}
           <div
             style={{
-              background: "#FAF9FF",
-              borderRadius: 24,
-              padding: "36px",
-              border: "1px solid #EDE9FF",
+              background: "#fff",
+              borderRadius: 20,
+              padding: "28px 32px",
+              border: "1px solid #E8EAED",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(52,123,246,0.12)";
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(52,123,246,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "none";
+              (e.currentTarget as HTMLElement).style.borderColor = "#E8EAED";
             }}
           >
             <div
               style={{
                 fontSize: 13,
                 fontWeight: 700,
-                color: "#7C5CF6",
+                color: "#347BF6",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 marginBottom: 24,
@@ -292,7 +303,7 @@ export default function YakkokSection() {
                     gap: 16,
                     paddingBottom: i < consumerFeatures.length - 1 ? 20 : 0,
                     marginBottom: i < consumerFeatures.length - 1 ? 20 : 0,
-                    borderBottom: i < consumerFeatures.length - 1 ? "1px solid #EDE9FF" : "none",
+                    borderBottom: i < consumerFeatures.length - 1 ? "1px solid #F0F1F2" : "none",
                   }}
                 >
                   <div
@@ -300,27 +311,20 @@ export default function YakkokSection() {
                       width: 32,
                       height: 32,
                       borderRadius: "50%",
-                      background: "rgba(124,92,246,0.12)",
+                      background: "rgba(52,123,246,0.1)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
                       fontSize: 11,
                       fontWeight: 800,
-                      color: "#7C5CF6",
+                      color: "#347BF6",
                     }}
                   >
                     {f.step}
                   </div>
                   <div>
-                    <div
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: "#1F1F22",
-                        marginBottom: 4,
-                      }}
-                    >
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#1F1F22", marginBottom: 4 }}>
                       {f.title}
                     </div>
                     <div style={{ fontSize: 13, color: "#707378", lineHeight: 1.6 }}>
@@ -335,20 +339,28 @@ export default function YakkokSection() {
           {/* Pharmacy Benefits */}
           <div
             style={{
-              background: "#FAF9FF",
-              borderRadius: 24,
-              padding: "36px",
-              border: "1px solid #EDE9FF",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              background: "#fff",
+              borderRadius: 20,
+              padding: "28px 32px",
+              border: "1px solid #E8EAED",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(52,123,246,0.12)";
+              (e.currentTarget as HTMLElement).style.borderColor = "rgba(52,123,246,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+              (e.currentTarget as HTMLElement).style.boxShadow = "none";
+              (e.currentTarget as HTMLElement).style.borderColor = "#E8EAED";
             }}
           >
             <div
               style={{
                 fontSize: 13,
                 fontWeight: 700,
-                color: "#7C5CF6",
+                color: "#347BF6",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 marginBottom: 24,
@@ -356,7 +368,7 @@ export default function YakkokSection() {
             >
               약국·브랜드 기대 효과
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               {pharmacyBenefits.map((b, i) => (
                 <div
                   key={b.title}
@@ -364,20 +376,14 @@ export default function YakkokSection() {
                     display: "flex",
                     gap: 14,
                     alignItems: "flex-start",
-                    paddingBottom: i < pharmacyBenefits.length - 1 ? 24 : 0,
-                    borderBottom: i < pharmacyBenefits.length - 1 ? "1px solid #EDE9FF" : "none",
+                    paddingBottom: i < pharmacyBenefits.length - 1 ? 20 : 0,
+                    marginBottom: i < pharmacyBenefits.length - 1 ? 20 : 0,
+                    borderBottom: i < pharmacyBenefits.length - 1 ? "1px solid #F0F1F2" : "none",
                   }}
                 >
                   <span style={{ fontSize: 22, lineHeight: 1 }}>{b.icon}</span>
                   <div>
-                    <div
-                      style={{
-                        fontSize: 14,
-                        fontWeight: 700,
-                        color: "#1F1F22",
-                        marginBottom: 4,
-                      }}
-                    >
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#1F1F22", marginBottom: 4 }}>
                       {b.title}
                     </div>
                     <div style={{ fontSize: 13, color: "#707378", lineHeight: 1.6 }}>

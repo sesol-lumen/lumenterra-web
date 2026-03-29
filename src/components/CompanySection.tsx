@@ -256,7 +256,7 @@ export default function CompanySection() {
             href="#yakkok"
             style={{
               display: "block",
-              background: "linear-gradient(135deg, #1e1030 0%, #2d1b5e 100%)",
+              background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
               borderRadius: 24,
               padding: "48px 40px",
               textDecoration: "none",
@@ -279,7 +279,7 @@ export default function CompanySection() {
                 width: 180,
                 height: 180,
                 borderRadius: "50%",
-                background: "rgba(124,92,246,0.2)",
+                background: "rgba(52,123,246,0.2)",
                 filter: "blur(40px)",
               }}
             />
@@ -287,7 +287,7 @@ export default function CompanySection() {
               style={{
                 fontSize: 12,
                 fontWeight: 700,
-                color: "#A78BFA",
+                color: "#7EB6FF",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
                 marginBottom: 12,
@@ -324,7 +324,7 @@ export default function CompanySection() {
                 gap: 6,
                 fontSize: 14,
                 fontWeight: 600,
-                color: "#A78BFA",
+                color: "#7EB6FF",
               }}
             >
               자세히 보기

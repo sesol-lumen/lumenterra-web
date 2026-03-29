@@ -38,7 +38,7 @@ function useScrollReveal() {
 }
 
 function ContactModal({ onClose }: { onClose: () => void }) {
-  const [form, setForm] = useState({ company: "", name: "", email: "" });
+  const [form, setForm] = useState({ company: "", name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -59,6 +59,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     if (!form.name.trim()) errs.name = "담당자명을 입력해주세요.";
     if (!form.email.trim()) errs.email = "이메일을 입력해주세요.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "올바른 이메일 형식이 아닙니다.";
+    if (form.message.length > 1000) errs.message = "1,000자 이내로 입력해주세요.";
     return errs;
   };
 
@@ -113,7 +114,9 @@ function ContactModal({ onClose }: { onClose: () => void }) {
           background: "#fff",
           borderRadius: 28,
           width: "100%",
-          maxWidth: 480,
+          maxWidth: 520,
+          maxHeight: "90vh",
+          overflowY: "auto",
           padding: "48px 44px",
           boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
           animation: "modalIn 0.3s ease",
@@ -210,6 +213,52 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                     onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = errors.email ? "#EF4444" : "#E8EAED"; }}
                   />
                   {errors.email && <p style={{ fontSize: 12, color: "#EF4444", marginTop: 6 }}>{errors.email}</p>}
+                </div>
+
+                {/* 담당자 연락처 */}
+                <div>
+                  <label style={{ fontSize: 13, fontWeight: 700, color: "#1F1F22", display: "block", marginBottom: 8 }}>
+                    담당자 연락처 <span style={{ fontSize: 12, fontWeight: 400, color: "#9FA3A8" }}>(선택)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="010-0000-0000"
+                    value={form.phone}
+                    onChange={(e) => { setForm({ ...form, phone: e.target.value }); }}
+                    style={inputStyle(false)}
+                    onFocus={(e) => { (e.target as HTMLInputElement).style.borderColor = "#347BF6"; }}
+                    onBlur={(e) => { (e.target as HTMLInputElement).style.borderColor = "#E8EAED"; }}
+                  />
+                </div>
+
+                {/* 문의 내용 */}
+                <div>
+                  <label style={{ fontSize: 13, fontWeight: 700, color: "#1F1F22", display: "block", marginBottom: 8 }}>
+                    문의 내용 <span style={{ fontSize: 12, fontWeight: 400, color: "#9FA3A8" }}>(선택)</span>
+                  </label>
+                  <textarea
+                    placeholder="문의 내용을 입력해주세요. (1,000자 이내)"
+                    value={form.message}
+                    maxLength={1000}
+                    rows={5}
+                    onChange={(e) => { setForm({ ...form, message: e.target.value }); setErrors({ ...errors, message: "" }); }}
+                    style={{
+                      ...inputStyle(!!errors.message),
+                      resize: "vertical",
+                      minHeight: 120,
+                    }}
+                    onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = errors.message ? "#EF4444" : "#347BF6"; }}
+                    onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = errors.message ? "#EF4444" : "#E8EAED"; }}
+                  />
+                  <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6 }}>
+                    {errors.message
+                      ? <p style={{ fontSize: 12, color: "#EF4444", margin: 0 }}>{errors.message}</p>
+                      : <span />
+                    }
+                    <span style={{ fontSize: 12, color: form.message.length >= 900 ? "#EF4444" : "#9FA3A8" }}>
+                      {form.message.length} / 1,000
+                    </span>
+                  </div>
                 </div>
               </div>
 
