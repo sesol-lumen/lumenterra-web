@@ -40,6 +40,8 @@ function useScrollReveal() {
 function ContactModal({ onClose }: { onClose: () => void }) {
   const [form, setForm] = useState({ company: "", name: "", email: "", phone: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // ESC 키로 닫기
@@ -63,11 +65,26 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitted(true);
+
+    setSending(true);
+    setSendError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setSendError("전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputStyle = (hasError: boolean): React.CSSProperties => ({
@@ -262,26 +279,32 @@ function ContactModal({ onClose }: { onClose: () => void }) {
                 </div>
               </div>
 
+              {sendError && (
+                <p style={{ fontSize: 13, color: "#EF4444", marginBottom: 12, textAlign: "center" }}>
+                  {sendError}
+                </p>
+              )}
               <button
                 type="submit"
+                disabled={sending}
                 style={{
                   width: "100%",
-                  background: "#347BF6",
+                  background: sending ? "#9FC3FB" : "#347BF6",
                   color: "#fff",
                   fontWeight: 700,
                   fontSize: 16,
                   padding: "15px",
                   borderRadius: 50,
                   border: "none",
-                  cursor: "pointer",
+                  cursor: sending ? "not-allowed" : "pointer",
                   letterSpacing: "-0.3px",
                   transition: "all 0.2s ease",
                   fontFamily: "inherit",
                 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#1a5fd4"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#347BF6"; }}
+                onMouseEnter={(e) => { if (!sending) (e.currentTarget as HTMLElement).style.background = "#1a5fd4"; }}
+                onMouseLeave={(e) => { if (!sending) (e.currentTarget as HTMLElement).style.background = "#347BF6"; }}
               >
-                문의 보내기
+                {sending ? "전송 중..." : "문의 보내기"}
               </button>
             </form>
           </>
