@@ -58,7 +58,7 @@ const features = [
 
 // 순서: 유한양행(로고 없어서 텍스트 처리)→종근당→신신제약→일양약품→삼진제약→경방신약→옵투스제약→셀로맥스→더유제약
 const marqueePartners = [
-  { name: "유한양행", logo: null },
+  { name: "유한양행", logo: "/logos/유한양행.png" },
   { name: "종근당", logo: "/logos/종근당.jpg" },
   { name: "신신제약", logo: "/logos/신신제약.jpg" },
   { name: "일양약품", logo: "/logos/일양약품.svg" },
@@ -67,6 +67,7 @@ const marqueePartners = [
   { name: "옵투스제약", logo: "/logos/옵투스제약.png" },
   { name: "셀로맥스", logo: "/logos/셀로맥스.jpg" },
   { name: "더유제약", logo: "/logos/더유제약.webp" },
+  { name: "SK케미칼", logo: "/logos/sk케미칼.png" },
 ];
 
 // 무한 루프를 위해 3번 복제
