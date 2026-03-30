@@ -146,7 +146,7 @@ export default function HeroSection() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "#347BF6",
+              background: "rgba(255,255,255,0.12)",
               color: "#fff",
               fontWeight: 700,
               fontSize: 15,
@@ -157,11 +157,11 @@ export default function HeroSection() {
               transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#1a5fd4";
+              (e.currentTarget as HTMLElement).style.background = "#347BF6";
               (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#347BF6";
+              (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.12)";
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
@@ -176,7 +176,7 @@ export default function HeroSection() {
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              background: "#347BF6",
+              background: "rgba(255,255,255,0.12)",
               color: "#fff",
               fontWeight: 700,
               fontSize: 15,
@@ -187,11 +187,11 @@ export default function HeroSection() {
               transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#1a5fd4";
+              (e.currentTarget as HTMLElement).style.background = "#347BF6";
               (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "#347BF6";
+              (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.12)";
               (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
             }}
           >
