@@ -322,7 +322,9 @@ export default function PressSection() {
           overflow-x: auto;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
+          padding-top: 8px;
           padding-bottom: 8px;
+          margin-top: -8px;
           scrollbar-width: none;
         }
         .press-track::-webkit-scrollbar {
