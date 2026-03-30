@@ -333,27 +333,14 @@ export default function PlatpharmSection() {
                 {marqueeItems.map((p, i) => (
                   <div key={i} className="marquee-item">
                     {/* 로고 박스 */}
-                    <div
-                      style={{
-                        width: 72,
-                        height: 72,
-                        borderRadius: 16,
-                        border: "1px solid #E8EAED",
-                        background: "#F7F8FA",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflow: "hidden",
-                        flexShrink: 0,
-                      }}
-                    >
+                    <div className="partner-logo-box">
                       {p.logo ? (
                         <Image
                           src={p.logo}
                           alt={p.name}
-                          width={64}
-                          height={64}
-                          style={{ objectFit: "contain", width: 64, height: 64 }}
+                          width={88}
+                          height={88}
+                          style={{ objectFit: "contain", width: 88, height: 88 }}
                         />
                       ) : (
                         <span
@@ -397,6 +384,10 @@ export default function PlatpharmSection() {
           animation: marquee-scroll 28s linear infinite;
           padding: 4px 0 8px;
         }
+        .marquee-item:hover ~ .marquee-item,
+        .marquee-item:hover {
+          /* 개별 hover는 partner-logo-box에서 처리 */
+        }
         .marquee-track:hover {
           animation-play-state: paused;
         }
@@ -405,8 +396,26 @@ export default function PlatpharmSection() {
           flex-direction: column;
           align-items: center;
           gap: 12px;
-          width: 96px;
+          width: 124px;
           flex-shrink: 0;
+        }
+        .partner-logo-box {
+          width: 100px;
+          height: 100px;
+          border-radius: 20px;
+          border: 1.5px solid #E8EAED;
+          background: #F7F8FA;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          flex-shrink: 0;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .partner-logo-box:hover {
+          border-color: #347BF6;
+          box-shadow: 0 0 0 3px rgba(52,123,246,0.15);
+          transform: translateY(-2px);
         }
         @keyframes marquee-scroll {
           0%   { transform: translateX(0); }
