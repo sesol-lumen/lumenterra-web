@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 function useScrollReveal(threshold = 0.15) {
   const ref = useRef<HTMLElement>(null);
@@ -55,151 +56,21 @@ const features = [
   },
 ];
 
-const partners = [
-  { name: "종근당 OTC", desc: "OTC 의약품 전문 직거래" },
-  { name: "위고비", desc: "전문 처방 의약품 공급" },
-  { name: "유한양행", desc: "종합 제약 솔루션 제공" },
-  { name: "일양약품", desc: "자동승인 3영업일 납품" },
-  { name: "삼진제약", desc: "선결제 안전 거래" },
+// 순서: 유한양행(로고 없어서 텍스트 처리)→종근당→신신제약→일양약품→삼진제약→경방신약→옵투스제약→셀로맥스→더유제약
+const marqueePartners = [
+  { name: "유한양행", logo: null },
+  { name: "종근당", logo: "/logos/종근당.jpg" },
+  { name: "신신제약", logo: "/logos/신신제약.jpg" },
+  { name: "일양약품", logo: "/logos/일양약품.svg" },
+  { name: "삼진제약", logo: "/logos/삼진제약.png" },
+  { name: "경방신약", logo: "/logos/경방신약.jpg" },
+  { name: "옵투스제약", logo: "/logos/옵투스제약.png" },
+  { name: "셀로맥스", logo: "/logos/셀로맥스.jpg" },
+  { name: "더유제약", logo: "/logos/더유제약.webp" },
 ];
 
-const targets = [
-  { role: "약국 경영자·약사", desc: "의약품 구매 비용 절감 및 발주 업무 효율화" },
-  { role: "병원 원무·구매 담당자", desc: "의약품 공급망 안정화 및 거래 투명성 확보" },
-  { role: "제약사 영업·마케팅팀", desc: "신규 거래처 확보 및 판매 채널 디지털화" },
-];
-
-function PartnerCarousel() {
-  const [current, setCurrent] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const startTimer = () => {
-    timerRef.current = setTimeout(() => {
-      setCurrent((prev) => (prev + 1) % partners.length);
-    }, 2800);
-  };
-
-  useEffect(() => {
-    startTimer();
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [current]);
-
-  const goTo = (idx: number) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setCurrent(idx);
-  };
-
-  return (
-    <div
-      style={{
-        background: "#fff",
-        borderRadius: 24,
-        padding: "36px",
-        border: "1px solid #E8EAED",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      {/* Label */}
-      <div
-        style={{
-          fontSize: 13,
-          fontWeight: 700,
-          color: "#347BF6",
-          letterSpacing: "2px",
-          textTransform: "uppercase" as const,
-          marginBottom: 32,
-        }}
-      >
-        파트너 제약사
-      </div>
-
-      {/* Slide Content */}
-      <div
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          minHeight: 140,
-        }}
-      >
-        {partners.map((p, i) => (
-          <div
-            key={p.name}
-            style={{
-              position: "absolute",
-              inset: 0,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              opacity: i === current ? 1 : 0,
-              transform: i === current ? "translateY(0)" : i < current ? "translateY(-16px)" : "translateY(16px)",
-              transition: "opacity 0.45s ease, transform 0.45s ease",
-              pointerEvents: i === current ? "auto" : "none",
-            }}
-          >
-            <div
-              style={{
-                fontSize: 32,
-                fontWeight: 800,
-                color: "#1F1F22",
-                letterSpacing: "-1px",
-                marginBottom: 12,
-              }}
-            >
-              {p.name}
-            </div>
-            <div
-              style={{
-                fontSize: 15,
-                color: "#707378",
-                lineHeight: 1.6,
-              }}
-            >
-              {p.desc}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Dot Indicators */}
-      <div style={{ display: "flex", gap: 8, marginTop: 32, alignItems: "center" }}>
-        {partners.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goTo(i)}
-            style={{
-              width: i === current ? 24 : 8,
-              height: 8,
-              borderRadius: 50,
-              background: i === current ? "#347BF6" : "#E8EAED",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              transition: "all 0.3s ease",
-            }}
-          />
-        ))}
-        <span
-          style={{
-            marginLeft: "auto",
-            fontSize: 13,
-            color: "#9FA3A8",
-            fontWeight: 600,
-          }}
-        >
-          {current + 1} / {partners.length}
-        </span>
-      </div>
-    </div>
-  );
-}
+// 무한 루프를 위해 3번 복제
+const marqueeItems = [...marqueePartners, ...marqueePartners, ...marqueePartners];
 
 export default function PlatpharmSection() {
   const ref = useScrollReveal(0.1) as React.RefObject<HTMLElement>;
@@ -386,7 +257,7 @@ export default function PlatpharmSection() {
             marginBottom: 48,
           }}
         >
-          {features.map((f, i) => (
+          {features.map((f) => (
             <div
               key={f.title}
               style={{
@@ -426,27 +297,15 @@ export default function PlatpharmSection() {
           ))}
         </div>
 
-        {/* Partners & Targets Row */}
-        <div
-          data-reveal
-          data-delay="250"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 16,
-          }}
-          className="platpharm-bottom-grid"
-        >
-          {/* Partners Carousel */}
-          <PartnerCarousel />
-
-          {/* Target Customers */}
+        {/* Partner Marquee */}
+        <div data-reveal data-delay="250">
           <div
             style={{
               background: "#fff",
               borderRadius: 24,
-              padding: "36px",
+              padding: "36px 0",
               border: "1px solid #E8EAED",
+              overflow: "hidden",
             }}
           >
             <div
@@ -456,51 +315,118 @@ export default function PlatpharmSection() {
                 color: "#347BF6",
                 letterSpacing: "2px",
                 textTransform: "uppercase",
-                marginBottom: 24,
+                marginBottom: 28,
+                paddingLeft: 36,
               }}
             >
-              도입 대상
+              파트너 제약사
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {targets.map((t, i) => (
-                <div key={t.role} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                  <div
-                    style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: "50%",
-                      background: "rgba(52,123,246,0.1)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      fontSize: 14,
-                      fontWeight: 800,
-                      color: "#347BF6",
-                    }}
-                  >
-                    {i + 1}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: "#1F1F22", marginBottom: 4 }}>
-                      {t.role}
+
+            {/* Marquee track */}
+            <div style={{ position: "relative", overflow: "hidden" }}>
+              {/* 좌우 페이드 마스크 */}
+              <div className="marquee-fade-left" />
+              <div className="marquee-fade-right" />
+
+              <div className="marquee-track">
+                {marqueeItems.map((p, i) => (
+                  <div key={i} className="marquee-item">
+                    {/* 로고 박스 */}
+                    <div
+                      style={{
+                        width: 72,
+                        height: 72,
+                        borderRadius: 16,
+                        border: "1px solid #E8EAED",
+                        background: "#F7F8FA",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {p.logo ? (
+                        <Image
+                          src={p.logo}
+                          alt={p.name}
+                          width={64}
+                          height={64}
+                          style={{ objectFit: "contain", width: 64, height: 64 }}
+                        />
+                      ) : (
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 800,
+                            color: "#347BF6",
+                            textAlign: "center",
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {p.name}
+                        </span>
+                      )}
                     </div>
-                    <div style={{ fontSize: 13, color: "#707378", lineHeight: 1.6 }}>
-                      {t.desc}
-                    </div>
+                    {/* 제약사명 */}
+                    <span
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "#1F1F22",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {p.name}
+                    </span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 640px) {
-          .platpharm-bottom-grid {
-            grid-template-columns: 1fr !important;
-          }
+        .marquee-track {
+          display: flex;
+          align-items: center;
+          gap: 40px;
+          width: max-content;
+          animation: marquee-scroll 28s linear infinite;
+          padding: 4px 0 8px;
+        }
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+        .marquee-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          width: 96px;
+          flex-shrink: 0;
+        }
+        @keyframes marquee-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        .marquee-fade-left,
+        .marquee-fade-right {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 80px;
+          z-index: 2;
+          pointer-events: none;
+        }
+        .marquee-fade-left {
+          left: 0;
+          background: linear-gradient(to right, #fff, transparent);
+        }
+        .marquee-fade-right {
+          right: 0;
+          background: linear-gradient(to left, #fff, transparent);
         }
       `}</style>
     </section>
