@@ -1,6 +1,91 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+function useCountUp(target: number, duration = 1800, startSignal: { start: boolean }) {
+  const [count, setCount] = useState(0);
+  const triggered = useRef(false);
+
+  useEffect(() => {
+    if (!startSignal.start || triggered.current) return;
+    triggered.current = true;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeInOutCubic — 초반 천천히 시작해서 중간에 빠르게, 끝에 부드럽게 마무리
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      setCount(Math.floor(ease * target));
+      if (progress < 1) requestAnimationFrame(tick);
+      else setCount(target);
+    };
+    requestAnimationFrame(tick);
+  }, [startSignal.start, target, duration]);
+
+  return count;
+}
+
+function StatsBlock() {
+  const [started, setStarted] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const signal = { start: started };
+  const count1 = useCountUp(16000, 1800, signal);
+  const count2 = useCountUp(60, 1800, signal);
+
+  return (
+    <div
+      ref={wrapRef}
+      style={{ display: "flex", gap: 40, marginTop: 56, flexWrap: "wrap" }}
+    >
+      {[
+        { count: count1, suffix: "+", label: "약국 및 병의원 회원", big: true },
+        { count: count2, suffix: "+", label: "주요 파트너사", big: false },
+      ].map((stat) => (
+        <div key={stat.label}>
+          <div
+            style={{
+              fontSize: "clamp(24px, 3vw, 36px)",
+              fontWeight: 800,
+              color: "#fff",
+              letterSpacing: "-1px",
+            }}
+          >
+            {stat.big ? stat.count.toLocaleString() : stat.count}{stat.suffix}
+          </div>
+          <div
+            style={{
+              fontSize: 13,
+              color: "rgba(255,255,255,0.5)",
+              marginTop: 4,
+              fontWeight: 500,
+            }}
+          >
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -203,43 +288,7 @@ export default function HeroSection() {
         </div>
 
         {/* Stats */}
-        <div
-          data-hero
-          style={{
-            display: "flex",
-            gap: 40,
-            marginTop: 56,
-            flexWrap: "wrap",
-          }}
-        >
-          {[
-            { num: "16,000+", label: "약국 및 병의원 회원" },
-            { num: "60+", label: "주요 파트너사" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <div
-                style={{
-                  fontSize: "clamp(24px, 3vw, 36px)",
-                  fontWeight: 800,
-                  color: "#fff",
-                  letterSpacing: "-1px",
-                }}
-              >
-                {stat.num}
-              </div>
-              <div
-                style={{
-                  fontSize: 13,
-                  color: "rgba(255,255,255,0.5)",
-                  marginTop: 4,
-                  fontWeight: 500,
-                }}
-              >
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
+        <StatsBlock />
       </div>
 
       {/* Scroll indicator */}
